@@ -18,6 +18,9 @@
     var ctx = canvas.getContext('2d');
     var motion = opts.motion || 'auto';
     var maxDpr = opts.dpr || 2;
+    // 중심 위치(0~1). 캔버스의 data-cx / data-cy 로도 지정 가능. 기본은 정중앙.
+    var cxF = opts.cx != null ? opts.cx : (canvas.dataset.cx != null ? parseFloat(canvas.dataset.cx) : 0.5);
+    var cyF = opts.cy != null ? opts.cy : (canvas.dataset.cy != null ? parseFloat(canvas.dataset.cy) : 0.5);
     var W = 0, H = 0;
 
     // --- 정적 지오메트리 ---
@@ -41,7 +44,7 @@
 
     function draw(t) {
       if (!W) return;
-      var cx = W * 0.5, cy = H * 0.5, R = Math.min(W, H) * 0.9;
+      var cx = W * cxF, cy = H * cyF, R = Math.min(W, H) * 0.9;
       var bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(W, H) * 0.75);
       bg.addColorStop(0, '#0b2247'); bg.addColorStop(0.5, '#071630'); bg.addColorStop(1, '#03080f');
       ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
