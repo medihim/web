@@ -1,0 +1,163 @@
+.company-page-hero {
+  --company-banner-image: none;
+  --company-accent: #16a5aa;
+  position: relative;
+  min-height: 590px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(10, 57, 65, 0.08);
+  background:
+    linear-gradient(90deg, #f8fbfa 0%, rgba(248, 251, 250, 0.98) 40%, rgba(248, 251, 250, 0.82) 58%, rgba(248, 251, 250, 0.18) 76%, rgba(248, 251, 250, 0) 100%),
+    var(--company-banner-image) center / cover no-repeat;
+}
+
+.company-page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent 34%, rgba(0, 54, 61, 0.05));
+}
+
+.company-page-hero[data-company-page="overview"] { --company-banner-image: url("company-banner/overview.jpg"); }
+.company-page-hero[data-company-page="mission"] { --company-banner-image: url("company-banner/mission-vision.jpg"); --company-accent: #d761a5; }
+.company-page-hero[data-company-page="capabilities"] { --company-banner-image: url("company-banner/capabilities.jpg"); --company-accent: #1d87b6; }
+.company-page-hero[data-company-page="history"] { --company-banner-image: url("company-banner/history.jpg"); --company-accent: #b6784c; }
+.company-page-hero[data-company-page="leadership"] { --company-banner-image: url("company-banner/leadership.jpg"); --company-accent: #7069b8; }
+
+.company-page-hero-inner {
+  position: relative;
+  z-index: 1;
+  min-height: 590px;
+  display: flex;
+  align-items: center;
+  padding-top: 92px;
+  padding-bottom: 72px;
+}
+
+.company-page-hero-copy {
+  width: min(690px, 60%);
+}
+
+.company-page-hero .breadcrumbs {
+  margin: 0 0 42px;
+  color: #587077;
+  font-size: 13px;
+}
+
+.company-page-hero .breadcrumbs a { color: inherit; }
+
+.company-page-index {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  color: var(--company-accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.company-page-index::before {
+  content: "";
+  width: 34px;
+  height: 2px;
+  background: currentColor;
+}
+
+.company-page-kicker {
+  margin: 0 0 14px;
+  color: #0b6570;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.company-page-hero h1 {
+  max-width: 680px;
+  margin: 0;
+  color: #092f38;
+  font-size: clamp(43px, 4vw, 60px);
+  line-height: 1.16;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.company-page-summary {
+  max-width: 650px;
+  margin: 25px 0 0;
+  color: #425f66;
+  font-size: 18px;
+  line-height: 1.75;
+  word-break: keep-all;
+}
+
+.company-page-hero .actions { margin-top: 30px; }
+
+@media (max-width: 980px) {
+  .company-page-hero {
+    min-height: 680px;
+    background:
+      linear-gradient(180deg, #f8fbfa 0%, rgba(248, 251, 250, 0.98) 46%, rgba(248, 251, 250, 0.76) 62%, rgba(248, 251, 250, 0.08) 82%),
+      var(--company-banner-image) 68% bottom / auto 58% no-repeat,
+      #f8fbfa;
+  }
+
+  .company-page-hero-inner {
+    min-height: 680px;
+    align-items: flex-start;
+    padding-top: 62px;
+    padding-bottom: 270px;
+  }
+
+  .company-page-hero-copy { width: 100%; }
+  .company-page-hero .breadcrumbs { margin-bottom: 32px; }
+}
+
+@media (max-width: 640px) {
+  .company-page-hero {
+    min-height: 670px;
+    background:
+      linear-gradient(180deg, #f8fbfa 0%, rgba(248, 251, 250, 0.99) 50%, rgba(248, 251, 250, 0.7) 66%, rgba(248, 251, 250, 0.06) 84%),
+      var(--company-banner-image) 68% bottom / auto 51% no-repeat,
+      #f8fbfa;
+  }
+
+  .company-page-hero-inner {
+    min-height: 670px;
+    padding-top: 38px;
+    padding-bottom: 250px;
+  }
+
+  .company-page-hero .breadcrumbs {
+    margin-bottom: 27px;
+    font-size: 12px;
+  }
+
+  .company-page-index {
+    margin-bottom: 13px;
+    font-size: 10px;
+  }
+
+  .company-page-kicker {
+    margin-bottom: 10px;
+    font-size: 11px;
+  }
+
+  .company-page-hero h1 {
+    font-size: clamp(32px, 9vw, 42px);
+    line-height: 1.19;
+    letter-spacing: -0.05em;
+  }
+
+  .company-page-summary {
+    margin-top: 18px;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .company-page-hero .actions { margin-top: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .company-page-hero { scroll-behavior: auto; }
+}
