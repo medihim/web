@@ -492,39 +492,46 @@ body.platform-detail-page {
 
 @media (max-width: 640px) {
   .platform-detail-hero {
-    min-height: 720px;
+    min-height: 0;
     align-items: flex-start;
-    background-position: 67% bottom;
-    background-size: auto 42%;
+    background-position: 69% bottom;
+    background-size: auto 34%;
     background-repeat: no-repeat;
   }
 
   .platform-detail-hero::before {
-    background: linear-gradient(180deg, rgba(247, 251, 250, 1) 0%, rgba(247, 251, 250, 1) 56%, rgba(247, 251, 250, .76) 68%, rgba(247, 251, 250, .08) 100%);
+    background: linear-gradient(180deg, rgba(247, 251, 250, 1) 0%, rgba(247, 251, 250, 1) 58%, rgba(247, 251, 250, .82) 70%, rgba(247, 251, 250, .08) 100%);
   }
 
   .platform-hero-copy {
     width: 100%;
-    padding: 42px 0 320px;
+    padding: 34px 0 228px;
   }
 
   .platform-breadcrumbs {
-    margin-bottom: 30px;
+    margin-bottom: 24px;
     font-size: 12px;
   }
 
   .platform-detail-hero h1 {
-    font-size: clamp(38px, 11.5vw, 50px);
+    font-size: clamp(35px, 10.5vw, 46px);
   }
 
   .platform-hero-summary {
-    margin-top: 20px;
-    font-size: 16px;
-    line-height: 1.7;
+    margin-top: 18px;
+    font-size: 15px;
+    line-height: 1.65;
   }
 
   .platform-detail-hero .actions {
-    margin-top: 24px;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .platform-detail-hero .btn {
+    min-height: 46px;
+    padding: 10px 15px;
+    font-size: 14px;
   }
 
   .platform-detail-page .section {
