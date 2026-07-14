@@ -33,3 +33,15 @@
 @media(max-width:900px){.mh-menu-toggle{display:flex}.mh-mobile-menu{display:block}.nav{gap:10px}.nav>.mobile.cta{margin-left:auto;padding:11px 15px}.nav .logo{max-width:44vw}}
 @media(max-width:560px){.mh-menu-toggle{width:42px;height:42px}.nav>.mobile.cta{font-size:12px;padding:9px 12px}.mh-mobile-panel{width:min(91vw,370px);padding:21px 20px max(24px,env(safe-area-inset-bottom))}.mh-mobile-nav a{min-height:58px;font-size:20px}}
 @media(prefers-reduced-motion:reduce){.mh-menu-toggle span,.mh-mobile-backdrop,.mh-mobile-panel{transition:none}}
+
+/* ===== MEDIHIM WIDE CORPORATE SYSTEM 2026-07-15 ===== */
+:root{--max:1280px;--reading-max:820px}
+body{font-size:18px;line-height:1.75}
+.wrap{width:min(var(--max),calc(100% - 48px))}
+.nav{height:88px;gap:30px}.logo{width:230px}.gnb{gap:26px;font-size:15px}.gnb a{padding:31px 0}
+.cta,.btn{padding:14px 23px}.hero{padding:116px 0 100px}.hero.small{padding:84px 0 70px}
+h1{font-size:clamp(48px,5.2vw,72px)}h2{font-size:clamp(36px,4vw,56px);line-height:1.18}h3{font-size:24px}
+.hero p,.lead{max-width:var(--reading-max);font-size:clamp(22px,1.75vw,26px);line-height:1.6}
+.section{padding:112px 0}.grid2,.grid3{gap:24px}.grid4{gap:20px}.card{padding:36px;border-radius:24px}.card p{line-height:1.75}.content-head p{font-size:18px;line-height:1.75}
+@media(max-width:900px){.nav{height:82px}.wrap{width:min(var(--max),calc(100% - 40px))}.section{padding:92px 0}}
+@media(max-width:560px){body{font-size:16px;line-height:1.7}.wrap{width:calc(100% - 34px)}h1{font-size:clamp(36px,10vw,42px)}h2{font-size:clamp(32px,9vw,38px)}h3{font-size:22px}.hero p,.lead{font-size:17px;line-height:1.7}.hero{padding:76px 0 60px}.section{padding:76px 0}.card{padding:27px}}

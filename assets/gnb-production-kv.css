@@ -14,3 +14,8 @@
 /* ===== MOBILE HORIZONTAL OVERFLOW FIX ===== */
 @media(max-width:900px){.menu-kv{max-width:100%;overflow:hidden}.menu-kv-stage{max-width:100%}.menu-system-map{max-width:100%;overflow:hidden}}
 @media(max-width:560px){html,body{max-width:100%;overflow-x:hidden}.menu-kv{width:100%;max-width:100vw}.menu-kv-stage{width:calc(100% - 34px);max-width:calc(100vw - 34px);overflow:hidden}.menu-system-map{width:100%;max-width:100%;contain:layout paint}.menu-system-orbit{left:50%;top:94px;width:248px;height:248px;transform:translateX(-50%);transform-origin:center}.menu-system-orbit:before{inset:29px}.menu-system-orbit:after{inset:64px}.menu-system-node{min-width:68px;height:32px;padding:0 8px;font-size:9px}.menu-system-node.node-1{left:-13px;top:39px}.menu-system-node.node-2{right:-13px;top:39px}.menu-system-node.node-3{right:-13px;bottom:37px}.menu-system-node.node-4{left:-13px;bottom:37px}.menu-system-core{width:104px;height:104px}.menu-system-result{box-sizing:border-box}}
+
+/* ===== WIDE CORPORATE GNB SCALE 2026-07-15 ===== */
+@media(min-width:1051px){.menu-kv,.menu-kv-stage{min-height:680px}.menu-kv-stage{grid-template-columns:minmax(0,.98fr) minmax(560px,1.02fr);gap:42px}.menu-kv-copy{padding:70px 0}.menu-kv-kicker{margin-top:58px}.menu-kv h1{max-width:680px;font-size:clamp(50px,3.65vw,58px);line-height:1.13}.menu-kv-summary{max-width:660px;font-size:20px;line-height:1.7}.menu-kv-link{font-size:14px;margin-top:28px}}
+@media(max-width:1050px) and (min-width:901px){.menu-kv h1{font-size:42px}.menu-kv-summary{font-size:18px}}
+@media(max-width:560px){.menu-kv h1{font-size:clamp(36px,10vw,42px)}.menu-kv-summary{max-width:340px;font-size:17px;line-height:1.68}}

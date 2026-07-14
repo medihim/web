@@ -309,3 +309,8 @@
   .business-service-card:hover,
   .business-service-card:focus-visible { transform: none; }
 }
+
+/* ===== WIDE CORPORATE BUSINESS SCALE 2026-07-15 ===== */
+@media(min-width:981px){.business-page-hero,.business-page-hero-inner{min-height:640px}.business-page-hero-inner{padding-top:94px;padding-bottom:78px}.business-page-hero-copy{width:min(940px,76%)}.business-page-hero h1{max-width:940px;font-size:clamp(50px,4.15vw,64px);line-height:1.13}.business-page-summary{max-width:780px;font-size:20px;line-height:1.7}.business-service-section{padding:120px 0 128px}.business-service-head p{font-size:18px}.business-service-card{min-height:270px;padding:34px}.business-service-card p{font-size:17px;line-height:1.72}}
+@media(max-width:980px) and (min-width:641px){.business-page-hero h1{font-size:clamp(42px,6.2vw,52px)}.business-page-summary{font-size:18px}.business-service-card p{font-size:16px}}
+@media(max-width:640px){.business-page-hero h1{font-size:clamp(32px,9.2vw,40px)}.business-page-summary{font-size:16px;line-height:1.7}.business-service-head p,.business-service-card p{font-size:16px}}
