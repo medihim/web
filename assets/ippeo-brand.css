@@ -1,0 +1,287 @@
+:root {
+  --ippeo-pink: #ff62c6;
+  --ippeo-pink-deep: #ef3cad;
+  --ippeo-mint: #66ddd8;
+  --ippeo-lilac: #9799ef;
+  --ippeo-ink: #252033;
+}
+
+.platform-detail-page .ippeo-brand-section {
+  position: relative;
+  padding: 72px 0 78px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 94% 8%, rgba(255, 98, 198, .11), transparent 28%),
+    radial-gradient(circle at 7% 92%, rgba(102, 221, 216, .11), transparent 25%),
+    #fff;
+}
+
+.ippeo-brand-shell {
+  width: min(1000px, calc(100% - 40px));
+}
+
+.ippeo-brand-intro {
+  display: grid;
+  grid-template-columns: minmax(0, .92fr) minmax(430px, 1.08fr);
+  gap: 46px;
+  align-items: center;
+}
+
+.ippeo-brand-copy {
+  min-width: 0;
+}
+
+.ippeo-logo-lockup {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.ippeo-logo-frame {
+  display: grid;
+  width: 154px;
+  min-height: 62px;
+  place-items: center;
+  padding: 10px 18px;
+  border-radius: 18px;
+  background: #17131d;
+  box-shadow: 0 14px 34px rgba(39, 27, 46, .16);
+}
+
+.ippeo-logo-frame img {
+  width: 100%;
+  max-height: 40px;
+  object-fit: contain;
+}
+
+.ippeo-logo-lockup small {
+  max-width: 160px;
+  color: #857a8c;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.45;
+  letter-spacing: .13em;
+}
+
+.ippeo-brand-section .platform-section-label {
+  color: var(--ippeo-pink-deep);
+}
+
+.ippeo-brand-section h2 {
+  max-width: 430px;
+  margin-bottom: 24px;
+  color: var(--ippeo-ink);
+  font-size: clamp(38px, 3.7vw, 52px);
+}
+
+.ippeo-brand-story {
+  max-width: 510px;
+  color: #62596a;
+  font-size: 16px;
+  line-height: 1.82;
+}
+
+.ippeo-brand-story p {
+  margin: 0;
+}
+
+.ippeo-brand-story p + p {
+  margin-top: 12px;
+}
+
+.ippeo-brand-visual {
+  position: relative;
+  margin: 0;
+  min-height: 334px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 98, 198, .2);
+  border-radius: 30px;
+  background: linear-gradient(145deg, #fff1fa 0%, #f8f3ff 48%, #eafffe 100%);
+  box-shadow: 0 24px 60px rgba(125, 73, 124, .12);
+}
+
+.ippeo-brand-visual::before,
+.ippeo-brand-visual::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+.ippeo-brand-visual::before {
+  width: 180px;
+  height: 180px;
+  top: -60px;
+  right: -20px;
+  background: rgba(255, 98, 198, .18);
+}
+
+.ippeo-brand-visual::after {
+  width: 120px;
+  height: 120px;
+  bottom: -45px;
+  left: 18px;
+  background: rgba(102, 221, 216, .2);
+}
+
+.ippeo-brand-visual img {
+  position: absolute;
+  z-index: 2;
+  width: 112%;
+  max-width: none;
+  left: -5%;
+  right: auto;
+  bottom: -4px;
+  object-fit: contain;
+  filter: drop-shadow(0 22px 26px rgba(153, 73, 142, .12));
+}
+
+.ippeo-brand-chip {
+  position: absolute;
+  z-index: 3;
+  top: 22px;
+  left: 22px;
+  padding: 8px 12px;
+  color: #a53d87;
+  border: 1px solid rgba(255, 98, 198, .24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .8);
+  backdrop-filter: blur(8px);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .13em;
+}
+
+.ippeo-value-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.ippeo-value-card {
+  position: relative;
+  min-height: 202px;
+  padding: 25px 24px 24px;
+  overflow: hidden;
+  border: 1px solid #eee4ec;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, .92);
+  box-shadow: 0 10px 28px rgba(48, 36, 53, .05);
+}
+
+.ippeo-value-card::after {
+  content: "";
+  position: absolute;
+  width: 68px;
+  height: 68px;
+  right: -24px;
+  bottom: -24px;
+  border-radius: 50%;
+  background: var(--card-accent, rgba(255, 98, 198, .13));
+}
+
+.ippeo-value-card:nth-child(2) {
+  --card-accent: rgba(102, 221, 216, .18);
+}
+
+.ippeo-value-card:nth-child(3) {
+  --card-accent: rgba(151, 153, 239, .16);
+}
+
+.ippeo-value-card .num {
+  display: block;
+  margin-bottom: 24px;
+  color: var(--ippeo-pink-deep);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .14em;
+}
+
+.ippeo-value-card h3 {
+  margin: 0 0 10px;
+  color: var(--ippeo-ink);
+  font-size: 20px;
+}
+
+.ippeo-value-card p {
+  margin: 0;
+  color: #716777;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .ippeo-brand-intro {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .ippeo-brand-copy {
+    max-width: 680px;
+  }
+
+  .ippeo-brand-visual {
+    min-height: 360px;
+  }
+
+  .ippeo-value-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ippeo-value-card:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .platform-detail-page .ippeo-brand-section {
+    padding: 56px 0 60px;
+  }
+
+  .ippeo-brand-shell {
+    width: calc(100% - 34px);
+  }
+
+  .ippeo-logo-lockup {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 24px;
+  }
+
+  .ippeo-logo-lockup small {
+    max-width: none;
+  }
+
+  .ippeo-brand-section h2 {
+    font-size: 36px;
+  }
+
+  .ippeo-brand-visual {
+    min-height: 245px;
+    border-radius: 24px;
+  }
+
+  .ippeo-brand-chip {
+    top: 16px;
+    left: 16px;
+  }
+
+  .ippeo-brand-visual img {
+    width: 128%;
+    left: -14%;
+  }
+
+  .ippeo-value-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .ippeo-value-card,
+  .ippeo-value-card:last-child {
+    grid-column: auto;
+    min-height: 0;
+  }
+}

@@ -1,0 +1,14 @@
+.business-page-hero.platform-consultation-hero {
+  --business-banner-image: url("platform-detail/consultation-reservation-hero.jpg");
+  --business-accent: #ec6db5;
+}
+
+.platform-consultation-hero .business-page-kicker {
+  color: #b74788;
+}
+
+@media (max-width: 640px) {
+  .platform-consultation-hero h1 {
+    word-break: keep-all;
+  }
+}
