@@ -1,0 +1,24 @@
+.business-page-hero.platform-ippeo-hero {
+  --business-banner-image: url("platform-detail/ippeo-hero.jpg");
+  --business-accent: #f15bb5;
+}
+
+.platform-ippeo-hero .business-page-kicker {
+  color: #c53e91;
+}
+
+.platform-ippeo-hero .platform-ippeo-primary {
+  background: #ee5bb3;
+  border-color: #ee5bb3;
+}
+
+.platform-ippeo-hero .platform-ippeo-primary:hover {
+  background: #d7489d;
+  border-color: #d7489d;
+}
+
+@media (max-width: 640px) {
+  .platform-ippeo-hero h1 {
+    word-break: keep-all;
+  }
+}
