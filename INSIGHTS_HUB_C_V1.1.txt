@@ -1,0 +1,15 @@
+MEDIHIM INSIGHTS HUB C
+Version: 1.1
+Build date: 2026-07-14
+
+Verification markers
+- insights.html meta: medihim-insights-layout = editorial-hub-c-v1.1
+- new stylesheet: assets/insights-hub.css
+- featured insight cards: 1
+- latest insight cards: 6
+- topic navigation links: 6
+- stock thumbnails: 15
+
+Expected local commit
+- f1bb0d1 Build editorial insight hub layout
+
