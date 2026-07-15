@@ -79,6 +79,29 @@
     selectPreset(form.elements.type, params.get('type'));
   }
 
+  function inquiryMessage(form) {
+    var names = ['message', 'challenge', 'proposal', 'background', 'request'];
+    for (var i = 0; i < names.length; i += 1) {
+      if (form.elements[names[i]] && form.elements[names[i]].value) {
+        return form.elements[names[i]].value.trim();
+      }
+    }
+    return '';
+  }
+
+  function validateInquiry(form) {
+    var message = inquiryMessage(form);
+    if (message.length < 10) {
+      setStatus(form, 'error', '문의 내용은 공백을 제외하고 10자 이상 입력해 주세요.');
+      return false;
+    }
+    if (/(주민등록번호|여권번호|진료기록|처방전|환자명|차트번호)/i.test(message)) {
+      setStatus(form, 'error', '환자 개인정보나 의료정보를 제외한 뒤 다시 제출해 주세요.');
+      return false;
+    }
+    return true;
+  }
+
   function setupTurnstile(form) {
     if (!config.turnstileSiteKey) return;
     var submitRow = form.querySelector('.submit-row');
@@ -143,6 +166,7 @@
     form.addEventListener('submit', function (event) {
       event.preventDefault();
       if (!form.reportValidity()) return;
+      if (!validateInquiry(form)) return;
 
       if (location.protocol === 'file:') {
         setStatus(form, 'error', '로컬 미리보기에서는 문의를 전송할 수 없습니다. 공개 홈페이지에서 다시 접수해 주세요.');
@@ -183,7 +207,7 @@
         window.clearTimeout(form._inquiryTimeout);
         form.removeAttribute('data-submitting');
         if (submit) submit.disabled = false;
-        setStatus(form, 'success', '문의 전송이 완료되었습니다. 입력한 이메일의 자동 회신을 확인해 주세요.');
+        setStatus(form, 'success', '문의 전송 요청이 완료되었습니다. 자동 회신 이메일이 도착하면 최종 접수가 완료된 것입니다.');
         form.reset();
         startedAt = Date.now();
       }).catch(function () {
