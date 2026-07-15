@@ -99,12 +99,24 @@
     }
   }
 
+  function isAllowedResultOrigin(origin) {
+    try {
+      var hostname = new URL(origin).hostname;
+      return hostname === 'script.google.com' ||
+        hostname === 'script.googleusercontent.com' ||
+        hostname.endsWith('.script.googleusercontent.com');
+    } catch (error) {
+      return false;
+    }
+  }
+
   window.addEventListener('message', function (event) {
-    if (event.origin !== 'https://script.googleusercontent.com' && event.origin !== 'https://script.google.com') return;
+    if (!isAllowedResultOrigin(event.origin)) return;
     if (!event.data || event.data.type !== 'MEDIHIM_INQUIRY_RESULT') return;
     var form = document.querySelector('form[data-submitting="true"]');
     if (!form) return;
 
+    window.clearTimeout(form._inquiryTimeout);
     var submit = form.querySelector('[type="submit"]');
     if (submit) submit.disabled = false;
     form.removeAttribute('data-submitting');
@@ -136,6 +148,11 @@
       event.preventDefault();
       if (!form.reportValidity()) return;
 
+      if (location.protocol === 'file:') {
+        setStatus(form, 'error', '로컬 미리보기에서는 문의를 전송할 수 없습니다. 공개 홈페이지에서 다시 접수해 주세요.');
+        return;
+      }
+
       if (!config.endpoint) {
         setStatus(form, 'error', '저장소 연결을 준비 중입니다. 잠시 후 다시 시도해 주세요.');
         return;
@@ -155,6 +172,13 @@
       var submit = form.querySelector('[type="submit"]');
       if (submit) submit.disabled = true;
       setStatus(form, 'sending', '창을 닫지 말고 잠시 기다려 주세요.');
+      window.clearTimeout(form._inquiryTimeout);
+      form._inquiryTimeout = window.setTimeout(function () {
+        if (form.getAttribute('data-submitting') !== 'true') return;
+        form.removeAttribute('data-submitting');
+        if (submit) submit.disabled = false;
+        setStatus(form, 'error', '전송 확인 시간이 초과되었습니다. 입력 내용을 확인한 뒤 다시 시도해 주세요.');
+      }, 30000);
       HTMLFormElement.prototype.submit.call(form);
     });
   });
