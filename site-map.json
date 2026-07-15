@@ -7,6 +7,12 @@
     "projects.html",
     "insights.html",
     "careers.html",
+    "role-strategy-pmo.html",
+    "role-global-marketing.html",
+    "role-patient-operations.html",
+    "role-crm-data.html",
+    "role-platform-product.html",
+    "role-brand-content.html",
     "company-overview.html",
     "mission-vision.html",
     "capabilities.html",
@@ -40,5 +46,5 @@
     "contact.html",
     "review.html"
   ],
-  "count": 39
+  "count": 45
 }
