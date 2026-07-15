@@ -1,0 +1,31 @@
+@media (max-width: 800px) {
+  .detail-case .metric-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 48px;
+  }
+
+  .detail-case .metric-row article {
+    min-width: 0;
+    padding: 26px 8px;
+    text-align: center;
+    border-right: 1px solid #bbb;
+    border-bottom: 0;
+  }
+
+  .detail-case .metric-row article:last-child {
+    border-right: 0;
+  }
+
+  .detail-case .metric-row strong {
+    font-size: clamp(38px, 12vw, 54px);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .detail-case .metric-row span {
+    margin-top: 10px;
+    font-size: 12px;
+    line-height: 1.45;
+    word-break: keep-all;
+  }
+}
