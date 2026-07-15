@@ -29,7 +29,7 @@
     box.innerHTML = '';
 
     var strong = document.createElement('strong');
-    strong.textContent = state === 'success' ? '문의가 정상적으로 접수되었습니다.' : state === 'sending' ? '문의 내용을 안전하게 전송하고 있습니다.' : '문의 접수에 문제가 발생했습니다.';
+    strong.textContent = state === 'success' ? '문의 전송 요청이 완료되었습니다.' : state === 'sending' ? '문의 내용을 안전하게 전송하고 있습니다.' : '문의 접수에 문제가 발생했습니다.';
     var detail = document.createElement('p');
     detail.textContent = message;
     box.appendChild(strong);
