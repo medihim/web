@@ -104,7 +104,8 @@
       var hostname = new URL(origin).hostname;
       return hostname === 'script.google.com' ||
         hostname === 'script.googleusercontent.com' ||
-        hostname.endsWith('.script.googleusercontent.com');
+        hostname.endsWith('.script.googleusercontent.com') ||
+        hostname.endsWith('-script.googleusercontent.com');
     } catch (error) {
       return false;
     }
