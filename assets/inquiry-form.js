@@ -47,6 +47,7 @@
 
   function collectMetadata(form) {
     addHidden(form, 'inquiry_type', form.getAttribute('data-inquiry-type'));
+    addHidden(form, 'inquiry_subtype', params.get('subtype') || (form.elements.service && form.elements.service.value) || (form.elements.type && form.elements.type.value) || '');
     addHidden(form, 'source_gnb', source);
     addHidden(form, 'source_page', from);
     addHidden(form, 'source_url', location.href);
@@ -77,6 +78,7 @@
   function applyPreset(form) {
     selectPreset(form.elements.service, params.get('service'));
     selectPreset(form.elements.type, params.get('type'));
+    selectPreset(form.elements.country, params.get('country'));
   }
 
   function inquiryMessage(form) {
