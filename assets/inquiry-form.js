@@ -56,6 +56,7 @@
     addHidden(form, 'utm_campaign', params.get('utm_campaign') || '');
     addHidden(form, 'form_version', config.formVersion || 'unknown');
     addHidden(form, 'privacy_version', config.privacyVersion || 'unknown');
+    addHidden(form, 'client_request_id', 'WEB-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).slice(2, 8).toUpperCase());
     addHidden(form, 'started_at', startedAt);
     addHidden(form, 'submitted_at', Date.now());
     addHidden(form, 'timezone', Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Seoul');
@@ -131,19 +132,13 @@
     }
   });
 
-  forms.forEach(function (form, index) {
+  forms.forEach(function (form) {
     applyPreset(form);
     setupTurnstile(form);
     addHidden(form, 'website', '');
     form.elements.website.className = 'inquiry-honeypot';
     form.elements.website.tabIndex = -1;
     form.elements.website.autocomplete = 'off';
-
-    var iframe = document.createElement('iframe');
-    iframe.name = 'inquiry-target-' + index;
-    iframe.className = 'inquiry-target';
-    iframe.title = '문의 제출 결과';
-    form.after(iframe);
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
@@ -165,9 +160,6 @@
       }
 
       collectMetadata(form);
-      form.action = config.endpoint;
-      form.method = 'post';
-      form.target = iframe.name;
       form.setAttribute('data-submitting', 'true');
 
       var submit = form.querySelector('[type="submit"]');
@@ -180,7 +172,27 @@
         if (submit) submit.disabled = false;
         setStatus(form, 'error', '전송 확인 시간이 초과되었습니다. 입력 내용을 확인한 뒤 다시 시도해 주세요.');
       }, 30000);
-      HTMLFormElement.prototype.submit.call(form);
+
+      fetch(config.endpoint, {
+        method: 'POST',
+        mode: 'no-cors',
+        cache: 'no-store',
+        body: new URLSearchParams(new FormData(form))
+      }).then(function () {
+        if (form.getAttribute('data-submitting') !== 'true') return;
+        window.clearTimeout(form._inquiryTimeout);
+        form.removeAttribute('data-submitting');
+        if (submit) submit.disabled = false;
+        setStatus(form, 'success', '문의 전송이 완료되었습니다. 입력한 이메일의 자동 회신을 확인해 주세요.');
+        form.reset();
+        startedAt = Date.now();
+      }).catch(function () {
+        if (form.getAttribute('data-submitting') !== 'true') return;
+        window.clearTimeout(form._inquiryTimeout);
+        form.removeAttribute('data-submitting');
+        if (submit) submit.disabled = false;
+        setStatus(form, 'error', '네트워크 연결을 확인한 뒤 다시 시도해 주세요.');
+      });
     });
   });
 })();
