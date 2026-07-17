@@ -122,7 +122,11 @@
 .history-year-label {
   position: sticky;
   top: 106px;
+  z-index: 1;
   align-self: start;
+  border: 0;
+  background: transparent;
+  backdrop-filter: none;
 }
 
 .history-year-label span {
