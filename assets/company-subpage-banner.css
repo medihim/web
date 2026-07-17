@@ -205,7 +205,7 @@
 .company-page-hero[data-company-page="brand"] {
   background:
     linear-gradient(90deg, #f8fbfa 0%, rgba(248, 251, 250, .97) 37%, rgba(248, 251, 250, .58) 55%, rgba(248, 251, 250, .06) 76%),
-    url("medihim-brand-flow-20260718.png") 62% center / auto 112% no-repeat,
+    url("medihim-brand-flow-20260718.png") right center / cover no-repeat,
     #f8fbfa;
 }
 
