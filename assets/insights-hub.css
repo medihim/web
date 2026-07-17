@@ -1,4 +1,8 @@
 /* MEDIHIM INSIGHTS EDITORIAL HUB C · v1.1 · 2026-07-14 */
+.menu-kv[data-menu="insights"] {
+  display: none;
+}
+
 .insight-hub {
   --insight: #8a7fe7;
   padding: 84px 0 94px;
