@@ -14,6 +14,7 @@
     "role-platform-product.html",
     "role-brand-content.html",
     "company-overview.html",
+    "brand-story.html",
     "mission-vision.html",
     "capabilities.html",
     "history.html",
@@ -46,5 +47,5 @@
     "contact.html",
     "review.html"
   ],
-  "count": 45
+  "count": 46
 }

@@ -35,6 +35,7 @@
 }
 
 .company-page-hero[data-company-page="overview"] { --company-banner-image: url("company-banner/overview.jpg"); }
+.company-page-hero[data-company-page="brand"] { --company-banner-image: url("medihim-brand-flow-20260718.png"); --company-accent: #d761a5; }
 .company-page-hero[data-company-page="mission"] { --company-banner-image: url("company-banner/mission-vision.jpg"); --company-accent: #d761a5; }
 .company-page-hero[data-company-page="capabilities"] { --company-banner-image: url("company-banner/capabilities.jpg"); --company-accent: #1d87b6; }
 .company-page-hero[data-company-page="history"] { --company-banner-image: url("company-banner/history.jpg"); --company-accent: #b6784c; }
@@ -199,3 +200,29 @@
 @media(min-width:981px){.company-page-hero,.company-page-hero-inner{min-height:630px}.company-page-hero-inner{padding-top:96px;padding-bottom:78px}.company-page-hero-copy{width:min(940px,76%)}.company-page-hero h1{max-width:940px;font-size:clamp(50px,4.15vw,64px);line-height:1.13}.company-page-summary{max-width:760px;font-size:20px;line-height:1.7}}
 @media(max-width:980px) and (min-width:641px){.company-page-hero h1{font-size:clamp(42px,6.2vw,52px)}.company-page-summary{font-size:18px}}
 @media(max-width:640px){.company-page-hero h1{font-size:clamp(32px,9.2vw,40px)}.company-page-summary{font-size:16px;line-height:1.7}}
+
+/* Brand story uses the brand-flow artwork instead of a photographic banner. */
+.company-page-hero[data-company-page="brand"] {
+  background:
+    linear-gradient(90deg, #f8fbfa 0%, rgba(248, 251, 250, .97) 37%, rgba(248, 251, 250, .58) 55%, rgba(248, 251, 250, .06) 76%),
+    url("medihim-brand-flow-20260718.png") 62% center / auto 112% no-repeat,
+    #f8fbfa;
+}
+
+@media (max-width: 980px) {
+  .company-page-hero[data-company-page="brand"] {
+    background:
+      linear-gradient(180deg, #f8fbfa 0%, rgba(248, 251, 250, .99) 52%, rgba(248, 251, 250, .48) 69%, rgba(248, 251, 250, .02) 100%),
+      url("medihim-brand-flow-20260718.png") 52% bottom / auto 70% no-repeat,
+      #f8fbfa;
+  }
+}
+
+@media (max-width: 640px) {
+  .company-page-hero[data-company-page="brand"] {
+    background:
+      linear-gradient(180deg, #f8fbfa 0%, rgba(248, 251, 250, .99) 54%, rgba(248, 251, 250, .42) 70%, rgba(248, 251, 250, 0) 100%),
+      url("medihim-brand-flow-20260718.png") 50% bottom / auto 62% no-repeat,
+      #f8fbfa;
+  }
+}
