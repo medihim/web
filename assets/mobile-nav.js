@@ -1,5 +1,26 @@
 (function(){
   'use strict';
+  function ensureInstagramFooterLink(){
+    var footer=document.querySelector('footer .foot');
+    if(!footer||footer.querySelector('a[href*="instagram.com/medihim.kr"]'))return;
+    var columns=footer.children;
+    var target=null;
+    for(var i=0;i<columns.length;i++){
+      var heading=columns[i].querySelector&&columns[i].querySelector('h4');
+      if(heading&&heading.textContent.trim()==='문의'){target=columns[i];break}
+    }
+    if(!target&&columns.length)target=columns[columns.length-1];
+    if(!target)return;
+    var link=document.createElement('a');
+    link.href='https://www.instagram.com/medihim.kr/';
+    link.target='_blank';
+    link.rel='noopener noreferrer';
+    link.className='footer-instagram-link';
+    link.setAttribute('aria-label','메디힘 인스타그램 새 창에서 열기');
+    link.textContent='Instagram ↗';
+    target.appendChild(link);
+  }
+  ensureInstagramFooterLink();
   if(document.querySelector('.mh-menu-toggle'))return;
   var nav=document.querySelector('header .nav');
   var source=nav&&nav.querySelector('.gnb');
