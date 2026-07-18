@@ -1,8 +1,8 @@
 (function(){
   'use strict';
-  function ensureInstagramFooterLink(){
+  function ensureInstagramFooterLinks(){
     var footer=document.querySelector('footer .foot');
-    if(!footer||footer.querySelector('a[href*="instagram.com/medihim.kr"]'))return;
+    if(!footer)return;
     var columns=footer.children;
     var target=null;
     for(var i=0;i<columns.length;i++){
@@ -11,16 +11,24 @@
     }
     if(!target&&columns.length)target=columns[columns.length-1];
     if(!target)return;
-    var link=document.createElement('a');
-    link.href='https://www.instagram.com/medihim.kr/';
-    link.target='_blank';
-    link.rel='noopener noreferrer';
-    link.className='footer-instagram-link';
-    link.setAttribute('aria-label','메디힘 인스타그램 새 창에서 열기');
-    link.textContent='Instagram ↗';
-    target.appendChild(link);
+    var channels=[
+      {href:'https://www.instagram.com/medihim.kr/',text:'메디힘 Instagram ↗',label:'메디힘 인스타그램 새 창에서 열기'},
+      {href:'https://www.instagram.com/ippeo_jp/',text:'이뻐 Japan Instagram ↗',label:'이뻐 일본 공식 인스타그램 새 창에서 열기'}
+    ];
+    for(var j=0;j<channels.length;j++){
+      var channel=channels[j];
+      if(target.querySelector('a[href="'+channel.href+'"]'))continue;
+      var link=document.createElement('a');
+      link.href=channel.href;
+      link.target='_blank';
+      link.rel='noopener noreferrer';
+      link.className='footer-instagram-link';
+      link.setAttribute('aria-label',channel.label);
+      link.textContent=channel.text;
+      target.appendChild(link);
+    }
   }
-  ensureInstagramFooterLink();
+  ensureInstagramFooterLinks();
   if(document.querySelector('.mh-menu-toggle'))return;
   var nav=document.querySelector('header .nav');
   var source=nav&&nav.querySelector('.gnb');
