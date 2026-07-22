@@ -46,11 +46,23 @@
   }
 
   function collectMetadata(form) {
+    var canonicalSourceUrl = location.href;
+    var validationSourceUrl = canonicalSourceUrl;
+
+    // The current Apps Script deployment still validates the former GitHub
+    // Pages origin. Keep the real public URL in canonical_source_url while a
+    // compatibility URL is used only for the server-side origin check.
+    if (config.legacySubmissionBase && /^(www\.)?medihim\.com$/i.test(location.hostname)) {
+      validationSourceUrl = String(config.legacySubmissionBase).replace(/\/$/, '') +
+        '/' + location.pathname.replace(/^\/+/, '') + location.search + location.hash;
+    }
+
     addHidden(form, 'inquiry_type', form.getAttribute('data-inquiry-type'));
     addHidden(form, 'inquiry_subtype', params.get('subtype') || (form.elements.service && form.elements.service.value) || (form.elements.type && form.elements.type.value) || '');
     addHidden(form, 'source_gnb', source);
     addHidden(form, 'source_page', from);
-    addHidden(form, 'source_url', location.href);
+    addHidden(form, 'source_url', validationSourceUrl);
+    addHidden(form, 'canonical_source_url', canonicalSourceUrl);
     addHidden(form, 'referrer', document.referrer);
     addHidden(form, 'utm_source', params.get('utm_source') || '');
     addHidden(form, 'utm_medium', params.get('utm_medium') || '');
@@ -177,6 +189,12 @@
 
       if (!config.endpoint) {
         setStatus(form, 'error', '저장소 연결을 준비 중입니다. 잠시 후 다시 시도해 주세요.');
+        return;
+      }
+
+      if (Array.isArray(config.allowedHostnames) && config.allowedHostnames.length &&
+          config.allowedHostnames.indexOf(location.hostname) === -1) {
+        setStatus(form, 'error', '공식 메디힘 홈페이지에서 다시 접수해 주세요.');
         return;
       }
 
