@@ -30,3 +30,6 @@
 .feature-title h2{font-size:clamp(48px,5.3vw,76px);line-height:1.06;letter-spacing:-.065em;word-break:keep-all}
 @media(max-width:800px){.feature-title h2{font-size:clamp(38px,10.5vw,52px);line-height:1.12}}
 @media(max-width:480px){.feature-title h2{font-size:38px;line-height:1.15}}
+
+/* PROJECT-FOOTER-BRAND-LOGO-V1 */
+.project-footer-logo{width:210px;filter:brightness(0) invert(1);opacity:.9;flex:0 0 auto}
