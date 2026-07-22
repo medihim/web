@@ -28,7 +28,27 @@
       target.appendChild(link);
     }
   }
+  function ensureFooterLegal(){
+    var footer=document.querySelector('footer');
+    if(!footer){
+      footer=document.createElement('footer');
+      footer.className='mh-legal-only';
+      document.body.appendChild(footer);
+    }
+    if(footer.querySelector('.footer-legal'))return;
+    var legal=document.createElement('div');
+    legal.className='wrap footer-legal';
+    legal.innerHTML='<address class="footer-company-info" aria-label="메디힘 사업자 정보">'+
+      '<span><b>사업자번호</b> 512-86-03805</span>'+
+      '<span><b>외국인환자 유치사업자 등록번호</b> A-2026-01-06978호</span>'+
+      '<span><b>주소</b> 서울 서초구 잠원동 25-13 리더스빌딩 2F</span>'+
+      '</address>'+
+      '<p class="footer-content-rights">본 사이트의 모든 콘텐츠(텍스트, 이미지, 디자인, UI 등)의 저작권은 ㈜메디힘에 있으며, 사전 서면 동의 없이 전재, 전송, 복제, 배포, 스크래핑, 변형 및 상업적 이용을 금합니다.</p>'+
+      '<p class="footer-copyright">Copyright © 2026 medihim Inc. All Rights Reserved.</p>';
+    footer.appendChild(legal);
+  }
   ensureInstagramFooterLinks();
+  ensureFooterLegal();
   if(document.querySelector('.mh-menu-toggle'))return;
   var nav=document.querySelector('header .nav');
   var source=nav&&nav.querySelector('.gnb');
