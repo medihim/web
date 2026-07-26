@@ -262,8 +262,9 @@ footer p:last-child{text-align:right}
 }
 
 /* 기존 메디힘 공통 GNB·푸터와 사업영역 v8 본문을 연결합니다. */
-.business-v8 .hero{min-height:680px;padding-top:76px;padding-bottom:58px}
-.business-v8 .page-label{top:30px}
+.business-v8 .hero{height:680px;min-height:680px;padding-top:76px;padding-bottom:58px}
+.business-v8 .page-label{top:121px}
+.business-v8 .hero-copy{align-self:start;margin-top:123px}
 .business-v8 .eyebrow.dark{background:transparent}
 .business-v8>footer{display:block;padding:54px 0;background:#0d2630;color:#dbe5e8}
 .business-v8>footer .foot{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;align-items:start;gap:25px}
@@ -276,17 +277,28 @@ footer p:last-child{text-align:right}
   .business-v8>footer .foot{grid-template-columns:1fr 1fr}
 }
 @media(max-width:1050px) and (min-width:901px){
-  .business-v8 .hero{min-height:650px}
+  .business-v8 .hero{height:650px;min-height:650px}
+  .business-v8 .page-label{top:159px}
+  .business-v8 .hero-copy{margin-top:157px}
+}
+@media(max-width:900px) and (min-width:761px){
+  .business-v8 .hero{height:auto}
+  .business-v8 .page-label{top:59px}
+  .business-v8 .hero-copy{margin-top:58px}
 }
 @media(max-width:760px){
-  .business-v8 .hero{min-height:538px;padding-top:88px;padding-bottom:50px;grid-template-columns:minmax(0,1fr)}
-  .business-v8 .page-label{top:22px}
-  .business-v8 .hero-copy{width:100%;max-width:calc(100vw - 40px);min-width:0}
+  .business-v8 .hero{height:auto;min-height:538px;padding-top:88px;padding-bottom:50px;grid-template-columns:minmax(0,1fr)}
+  .business-v8 .page-label{top:59px}
+  .business-v8 .hero-copy{width:100%;max-width:calc(100vw - 40px);min-width:0;margin-top:46px}
   .business-v8 .hero h1{font-size:clamp(36px,10vw,42px)}
   .business-v8 .hero h1 span{display:block}
   .business-v8 .hero h1 br{display:none}
   .business-v8 .hero-description{max-width:100%;word-break:break-all;overflow-wrap:anywhere}
   .business-v8 .hero-system{display:grid;width:260px;right:-155px;bottom:-55px;opacity:.12;z-index:1;pointer-events:none}
+}
+@media(max-width:560px){
+  .business-v8 .page-label{top:49px}
+  .business-v8 .hero-copy{margin-top:17px}
 }
 @media(max-width:560px){
   .business-v8>footer .foot{grid-template-columns:1fr}

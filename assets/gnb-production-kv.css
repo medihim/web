@@ -17,5 +17,6 @@
 
 /* ===== WIDE CORPORATE GNB SCALE 2026-07-15 ===== */
 @media(min-width:1051px){.menu-kv,.menu-kv-stage{min-height:680px}.menu-kv-stage{grid-template-columns:minmax(0,.98fr) minmax(560px,1.02fr);gap:42px}.menu-kv-copy{padding:70px 0}.menu-kv-kicker{margin-top:58px}.menu-kv h1{max-width:680px;font-size:clamp(62.5px,4.5625vw,72.5px);line-height:1.13;white-space:normal;word-break:keep-all;overflow-wrap:break-word;text-wrap:balance}.menu-kv-summary{max-width:660px;font-size:20px;line-height:1.7}.menu-kv-link{font-size:14px;margin-top:28px}}
+@media(min-width:1051px){.menu-kv[data-menu="company"] .menu-kv-stage,.menu-kv[data-menu="platform"] .menu-kv-stage{align-items:start}.menu-kv[data-menu="company"] .menu-kv-copy,.menu-kv[data-menu="platform"] .menu-kv-copy{padding:110px 0 70px}}
 @media(max-width:1050px) and (min-width:901px){.menu-kv h1{font-size:42px}.menu-kv-summary{font-size:18px}}
 @media(max-width:560px){.menu-kv h1{font-size:clamp(36px,10vw,42px)}.menu-kv-summary{max-width:340px;font-size:17px;line-height:1.68}}
