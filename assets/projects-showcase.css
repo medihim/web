@@ -33,3 +33,12 @@
 
 /* PROJECT-FOOTER-BRAND-LOGO-V1 */
 .project-footer-logo{width:210px;filter:brightness(0) invert(1);opacity:.9;flex:0 0 auto}
+
+/* PROJECTS-BIG-STEP-MOBILE-ROW-V1 */
+@media(max-width:800px){
+  .big-numbers{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .big-numbers article{min-width:0;padding:30px 8px;text-align:center}
+  .big-numbers article:last-child{border-right:0}
+  .big-numbers strong{display:block;font-size:clamp(36px,11vw,52px);line-height:1;white-space:nowrap}
+  .big-numbers span{margin-top:14px;font-size:clamp(10px,2.8vw,12px);line-height:1.4;letter-spacing:-.04em;white-space:nowrap}
+}
