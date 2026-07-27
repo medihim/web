@@ -148,21 +148,12 @@
 
   function collectMetadata(form) {
     var canonicalSourceUrl = location.href;
-    var validationSourceUrl = canonicalSourceUrl;
-
-    // The current Apps Script deployment still validates the former GitHub
-    // Pages origin. Keep the real public URL in canonical_source_url while a
-    // compatibility URL is used only for the server-side origin check.
-    if (config.legacySubmissionBase && /^(www\.)?medihim\.com$/i.test(location.hostname)) {
-      validationSourceUrl = String(config.legacySubmissionBase).replace(/\/$/, '') +
-        '/' + location.pathname.replace(/^\/+/, '') + location.search + location.hash;
-    }
 
     addHidden(form, 'inquiry_type', form.getAttribute('data-inquiry-type'));
     addHidden(form, 'inquiry_subtype', params.get('subtype') || (form.elements.service && form.elements.service.value) || (form.elements.type && form.elements.type.value) || '');
     addHidden(form, 'source_gnb', source);
     addHidden(form, 'source_page', from);
-    addHidden(form, 'source_url', validationSourceUrl);
+    addHidden(form, 'source_url', canonicalSourceUrl);
     addHidden(form, 'canonical_source_url', canonicalSourceUrl);
     addHidden(form, 'referrer', document.referrer);
     addHidden(form, 'utm_source', params.get('utm_source') || '');
