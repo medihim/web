@@ -243,10 +243,23 @@
     }
   }
 
+  function isResultSourceForState(sourceWindow, state) {
+    if (!sourceWindow || !state.frame) return false;
+
+    var frameWindow = state.frame.contentWindow;
+    if (sourceWindow === frameWindow) return true;
+
+    try {
+      return sourceWindow.parent === frameWindow;
+    } catch (error) {
+      return false;
+    }
+  }
+
   function formForResultSource(sourceWindow) {
     for (var i = 0; i < forms.length; i += 1) {
       var state = stateFor(forms[i]);
-      if (state.inFlight && state.frame && state.frame.contentWindow === sourceWindow) {
+      if (state.inFlight && isResultSourceForState(sourceWindow, state)) {
         return forms[i];
       }
     }
