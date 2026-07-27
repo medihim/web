@@ -247,13 +247,24 @@
     if (!sourceWindow || !state.frame) return false;
 
     var frameWindow = state.frame.contentWindow;
-    if (sourceWindow === frameWindow) return true;
+    var candidate = sourceWindow;
+    var maxDepth = 4;
 
     try {
-      return sourceWindow.parent === frameWindow;
+      for (var depth = 0; depth <= maxDepth; depth += 1) {
+        if (candidate.closed) return false;
+        if (candidate === frameWindow) return true;
+
+        var parentWindow = candidate.parent;
+        if (!parentWindow || parentWindow === candidate) return false;
+
+        candidate = parentWindow;
+      }
     } catch (error) {
       return false;
     }
+
+    return false;
   }
 
   function formForResultSource(sourceWindow) {
