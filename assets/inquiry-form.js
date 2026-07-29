@@ -195,12 +195,97 @@
     return '';
   }
 
+  function normalizedValue(value) {
+    return String(value || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function compactValue(value) {
+    return normalizedValue(value).replace(/[\s._\-–—/\\()[\]{}]/g, '').toLowerCase();
+  }
+
+  function hasRepeatedCharacters(value) {
+    return /(.)\1{4,}/i.test(compactValue(value));
+  }
+
+  function isKnownDummy(value) {
+    var compact = compactValue(value);
+    return /^(test|testing|tester|sample|dummy|asdf|qwer|qwerty|abc|abcd|none|null|undefined|unknown|na|no|없음|모름|테스트|샘플|문의)$/.test(compact) ||
+      /^(0123456789|1234567890|0987654321)$/.test(compact);
+  }
+
+  function isRandomLatinToken(value, minimumLength) {
+    var text = normalizedValue(value);
+    if (text.length < minimumLength || /\s/.test(text) || /[^A-Za-z]/.test(text)) return false;
+
+    var lower = text.toLowerCase();
+    var vowelCount = (lower.match(/[aeiou]/g) || []).length;
+    var vowelRatio = vowelCount / lower.length;
+    var caseChanges = 0;
+    for (var i = 1; i < text.length; i += 1) {
+      if (/[A-Z]/.test(text[i]) !== /[A-Z]/.test(text[i - 1])) caseChanges += 1;
+    }
+    return vowelRatio < 0.20 || caseChanges >= 4;
+  }
+
+  function fieldValue(form, names) {
+    for (var i = 0; i < names.length; i += 1) {
+      if (form.elements[names[i]]) return normalizedValue(form.elements[names[i]].value);
+    }
+    return '';
+  }
+
+  function showValidationError(form, message, errorType, field) {
+    setStatus(form, 'error', message);
+    trackFormError(errorType);
+    if (field && typeof field.focus === 'function') field.focus();
+    return false;
+  }
+
+  function validPhone(value) {
+    if (!value) return true;
+    if (!/^[+()\d\s-]+$/.test(value)) return false;
+    var digits = value.replace(/\D/g, '');
+    if (digits.length < 8 || digits.length > 15) return false;
+    if (/^(\d)\1+$/.test(digits)) return false;
+    if (/^(0123456789|1234567890|0987654321)$/.test(digits)) return false;
+    return true;
+  }
+
   function validateInquiry(form) {
     var message = inquiryMessage(form);
+    var contactName = fieldValue(form, ['contact_name', 'name']);
+    var organization = fieldValue(form, ['organization', 'org', 'company', 'hospital']);
+    var subject = fieldValue(form, ['subject']);
+    var phone = fieldValue(form, ['phone']);
+    var nameField = form.elements.contact_name || form.elements.name;
+    var organizationField = form.elements.organization || form.elements.org || form.elements.company || form.elements.hospital;
+
+    if (contactName.length < 2 || contactName.length > 40 ||
+        !/^[A-Za-zÀ-ÖØ-öø-ÿ가-힣ㄱ-ㅎㅏ-ㅣ一-龥々\s.'’-]+$/.test(contactName) ||
+        isKnownDummy(contactName) || hasRepeatedCharacters(contactName) ||
+        isRandomLatinToken(contactName, 10)) {
+      return showValidationError(form, '담당자명을 실제 성함으로 입력해 주세요.', 'invalid_contact_name', nameField);
+    }
+    if (organization && (organization.length < 2 || organization.length > 80 ||
+        isKnownDummy(organization) || hasRepeatedCharacters(organization) ||
+        isRandomLatinToken(organization.replace(/\s+(llc|ltd|inc|corp|co)$/i, ''), 14))) {
+      return showValidationError(form, '소속 기관 또는 병원명을 다시 확인해 주세요.', 'invalid_organization', organizationField);
+    }
+    if (!validPhone(phone)) {
+      return showValidationError(form, '연락 가능한 전화번호를 국가번호를 포함해 정확히 입력해 주세요.', 'invalid_phone', form.elements.phone);
+    }
+    if (subject && (subject.length < 3 || isKnownDummy(subject) ||
+        hasRepeatedCharacters(subject) || isRandomLatinToken(subject, 14))) {
+      return showValidationError(form, '문의 제목을 구체적으로 입력해 주세요.', 'invalid_subject', form.elements.subject);
+    }
     if (message.length < 10) {
       setStatus(form, 'error', '문의 내용은 공백을 제외하고 10자 이상 입력해 주세요.');
       trackFormError('message_too_short');
       return false;
+    }
+    if (isKnownDummy(message) || hasRepeatedCharacters(message) ||
+        isRandomLatinToken(message, 12)) {
+      return showValidationError(form, '문의 내용을 문장으로 구체적으로 입력해 주세요.', 'meaningless_message', form.elements.message || form.elements.challenge || form.elements.proposal || form.elements.background || form.elements.request);
     }
     if (/(주민등록번호|여권번호|진료기록|처방전|환자명|차트번호)/i.test(message)) {
       setStatus(form, 'error', '환자 개인정보나 의료정보를 제외한 뒤 다시 제출해 주세요.');
@@ -400,7 +485,7 @@
         return;
       }
 
-      if (Date.now() - startedAt < 2000) {
+      if (Date.now() - startedAt < 5000) {
         trackFormError('submission_too_fast');
         setStatus(form, 'error', '입력 내용을 다시 확인한 뒤 제출해 주세요.');
         return;
