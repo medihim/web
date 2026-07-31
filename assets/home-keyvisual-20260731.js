@@ -254,9 +254,104 @@
     });
   }
 
+  function initMetrics() {
+    var matching = hero.querySelector('[data-kv-metric="matching"]');
+    var consultations = hero.querySelector('[data-kv-metric="consultations"]');
+    var conversion = hero.querySelector('[data-kv-metric="conversion"]');
+    var confidence = hero.querySelector('[data-kv-metric="confidence"]');
+    var elements = [matching, consultations, conversion, confidence];
+
+    if (elements.some(function (element) { return !element; })) return;
+
+    var values = {
+      matching: 94.2,
+      consultations: 1280,
+      conversion: 23.5,
+      confidence: 96.1
+    };
+    var frames = {};
+    var timer = 0;
+    var tick = 0;
+
+    function format(name, value) {
+      if (name === "consultations") {
+        return Math.round(value).toLocaleString("ko-KR") + "건";
+      }
+      if (name === "conversion") {
+        return "+" + value.toFixed(1) + "%";
+      }
+      return value.toFixed(1) + "%";
+    }
+
+    function animate(name, element, target, duration) {
+      var startValue = values[name];
+      var startTime = performance.now();
+
+      if (frames[name]) {
+        window.cancelAnimationFrame(frames[name]);
+      }
+
+      function render(now) {
+        var progress = Math.min(1, (now - startTime) / duration);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = startValue + (target - startValue) * eased;
+        element.textContent = format(name, current);
+
+        if (progress < 1) {
+          frames[name] = window.requestAnimationFrame(render);
+        } else {
+          values[name] = target;
+          frames[name] = 0;
+        }
+      }
+
+      frames[name] = window.requestAnimationFrame(render);
+    }
+
+    function update(initial) {
+      if (!initial && !canAnimate()) return;
+      tick += 1;
+      var next = initial ? {
+        matching: 94.2,
+        consultations: 1280,
+        conversion: 23.5,
+        confidence: 96.1
+      } : {
+        matching: 94.2 + Math.sin(tick * .7) * 1.6,
+        consultations: 1280 + Math.sin(tick * .7 + 1.7) * 90,
+        conversion: 23.5 + Math.sin(tick * .7 + 3.4) * 2.4,
+        confidence: 96.1 + Math.sin(tick * .7 + 5.1) * 1.3
+      };
+
+      animate("matching", matching, next.matching, initial ? 900 : 700);
+      animate("consultations", consultations, next.consultations, initial ? 1000 : 700);
+      animate("conversion", conversion, next.conversion, initial ? 1100 : 700);
+      animate("confidence", confidence, next.confidence, initial ? 950 : 700);
+    }
+
+    values.matching = 0;
+    values.consultations = 0;
+    values.conversion = 0;
+    values.confidence = 0;
+    matching.textContent = "0.0%";
+    consultations.textContent = "0건";
+    conversion.textContent = "+0.0%";
+    confidence.textContent = "0.0%";
+    update(true);
+    timer = window.setInterval(function () { update(false); }, 2200);
+
+    cleanupFns.push(function () {
+      window.clearInterval(timer);
+      Object.keys(frames).forEach(function (name) {
+        window.cancelAnimationFrame(frames[name]);
+      });
+    });
+  }
+
   initWave();
   initNetwork();
   initParallax();
+  initMetrics();
 
   function resizeAll() {
     resizeCallbacks.forEach(function (callback) { callback(); });

@@ -291,8 +291,10 @@
 .kv-hud__row b {
   margin-left: auto;
   color: var(--kv-teal);
-  font-size: 11px;
-  letter-spacing: .05em;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.01em;
+  white-space: nowrap;
 }
 
 .kv-bars {
@@ -391,7 +393,8 @@
 .kv-gauge__inner b {
   display: block;
   color: var(--kv-teal);
-  font-size: 15px;
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
   line-height: 1.1;
 }
 
@@ -551,12 +554,23 @@
     padding: 66px 0 310px;
   }
 
-  .kv-hud,
   .kv-neural,
   .kv-bars,
-  .kv-gauge,
   .kv-tokens {
     display: none;
+  }
+
+  .kv-hud {
+    top: auto;
+    right: 5%;
+    bottom: 8%;
+    width: 220px;
+  }
+
+  .kv-gauge {
+    top: auto;
+    right: 36%;
+    bottom: 12%;
   }
 
   .kv-orb--large {
@@ -618,6 +632,41 @@
 
   .kv-hero .brand-hero__lead {
     font-size: 19px;
+  }
+
+  .kv-hud {
+    left: 18px;
+    right: auto;
+    bottom: 42px;
+    width: min(218px, 58vw);
+    gap: 6px;
+  }
+
+  .kv-hud__row {
+    gap: 7px;
+    padding: 8px 10px;
+    font-size: 10.5px;
+  }
+
+  .kv-hud__row b {
+    font-size: 11px;
+  }
+
+  .kv-gauge {
+    right: 18px;
+    bottom: 70px;
+    width: 94px;
+    height: 94px;
+  }
+
+  .kv-gauge__inner {
+    width: 72px;
+    height: 72px;
+    font-size: 8.5px;
+  }
+
+  .kv-gauge__inner b {
+    font-size: 18px;
   }
 
   .kv-fallback,
@@ -685,6 +734,16 @@
   .kv-hero .btn {
     padding: 12px 16px;
     font-size: 14px;
+  }
+
+  .kv-hud {
+    left: 12px;
+    bottom: 34px;
+  }
+
+  .kv-gauge {
+    right: 12px;
+    bottom: 64px;
   }
 }
 
