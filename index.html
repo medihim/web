@@ -112,22 +112,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="kv-panel kv-neural" data-kv-par="0.14">
           <b>NEURAL MATCHING</b>
           <svg viewBox="0 0 162 84" aria-hidden="true">
-            <g>
-              <line x1="12" y1="17" x2="57" y2="21"></line><line x1="12" y1="17" x2="57" y2="42"></line>
-              <line x1="12" y1="34" x2="57" y2="21"></line><line x1="12" y1="34" x2="57" y2="63"></line>
-              <line x1="12" y1="50" x2="57" y2="42"></line><line x1="12" y1="67" x2="57" y2="63"></line>
+            <g class="kv-synapses kv-synapses--input">
+              <line x1="12" y1="17" x2="57" y2="21"></line><line x1="12" y1="17" x2="57" y2="42"></line><line x1="12" y1="17" x2="57" y2="63"></line>
+              <line x1="12" y1="34" x2="57" y2="21"></line><line x1="12" y1="34" x2="57" y2="42"></line><line x1="12" y1="34" x2="57" y2="63"></line>
+              <line x1="12" y1="50" x2="57" y2="21"></line><line x1="12" y1="50" x2="57" y2="42"></line><line x1="12" y1="50" x2="57" y2="63"></line>
+              <line x1="12" y1="67" x2="57" y2="21"></line><line x1="12" y1="67" x2="57" y2="42"></line><line x1="12" y1="67" x2="57" y2="63"></line>
+            </g>
+            <g class="kv-synapses kv-synapses--hidden">
               <line x1="57" y1="21" x2="105" y2="21"></line><line x1="57" y1="21" x2="105" y2="42"></line>
-              <line x1="57" y1="42" x2="105" y2="21"></line><line x1="57" y1="42" x2="105" y2="63"></line>
-              <line x1="57" y1="63" x2="105" y2="42"></line><line x1="57" y1="63" x2="105" y2="63"></line>
+              <line x1="57" y1="21" x2="105" y2="63"></line>
+              <line x1="57" y1="42" x2="105" y2="21"></line><line x1="57" y1="42" x2="105" y2="42"></line><line x1="57" y1="42" x2="105" y2="63"></line>
+              <line x1="57" y1="63" x2="105" y2="21"></line><line x1="57" y1="63" x2="105" y2="42"></line><line x1="57" y1="63" x2="105" y2="63"></line>
+            </g>
+            <g class="kv-synapses kv-synapses--output">
               <line x1="105" y1="21" x2="150" y2="42"></line><line x1="105" y1="42" x2="150" y2="42"></line>
               <line x1="105" y1="63" x2="150" y2="42"></line>
             </g>
-            <g>
+            <g class="kv-neurons kv-neurons--input">
               <circle cx="12" cy="17" r="3.4"></circle><circle cx="12" cy="34" r="3.4"></circle>
               <circle cx="12" cy="50" r="3.4"></circle><circle cx="12" cy="67" r="3.4"></circle>
+            </g>
+            <g class="kv-neurons kv-neurons--hidden-a">
               <circle cx="57" cy="21" r="3.4"></circle><circle cx="57" cy="42" r="3.4"></circle>
-              <circle cx="57" cy="63" r="3.4"></circle><circle cx="105" cy="21" r="3.4"></circle>
+              <circle cx="57" cy="63" r="3.4"></circle>
+            </g>
+            <g class="kv-neurons kv-neurons--hidden-b">
+              <circle cx="105" cy="21" r="3.4"></circle>
               <circle cx="105" cy="42" r="3.4"></circle><circle cx="105" cy="63" r="3.4"></circle>
+            </g>
+            <g class="kv-neurons kv-neurons--output">
               <circle cx="150" cy="42" r="3.4"></circle>
             </g>
           </svg>

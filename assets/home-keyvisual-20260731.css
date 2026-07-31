@@ -343,25 +343,60 @@
 }
 
 .kv-neural line {
-  stroke: rgba(22, 162, 181, .4);
   stroke-width: 1;
   stroke-dasharray: 3 5;
-  animation: kv-synapse 1.8s linear infinite;
+  animation: kv-synapse var(--kv-synapse-speed, 1.8s) linear var(--kv-synapse-delay, 0s) infinite;
+}
+
+.kv-synapses--input line {
+  stroke: rgba(255, 102, 204, .42);
+}
+
+.kv-synapses--hidden line,
+.kv-synapses--output line {
+  stroke: rgba(22, 162, 181, .4);
+}
+
+.kv-neural line:nth-child(3n+1) {
+  --kv-synapse-speed: 1.35s;
+  --kv-synapse-delay: -.45s;
+}
+
+.kv-neural line:nth-child(3n+2) {
+  --kv-synapse-speed: 2.15s;
+  --kv-synapse-delay: -1.1s;
+}
+
+.kv-neural line:nth-child(3n) {
+  --kv-synapse-speed: 2.65s;
+  --kv-synapse-delay: -.8s;
 }
 
 .kv-neural circle {
-  fill: var(--kv-teal);
   transform-box: fill-box;
   transform-origin: center;
   animation: kv-fire 2.2s ease-in-out infinite;
 }
 
-.kv-neural circle:first-of-type,
-.kv-neural circle:nth-of-type(2),
-.kv-neural circle:nth-of-type(3),
-.kv-neural circle:nth-of-type(4) {
+.kv-neurons--input circle {
   fill: var(--kv-pink);
 }
+
+.kv-neurons--hidden-a circle {
+  fill: #78ccd6;
+}
+
+.kv-neurons--hidden-b circle {
+  fill: var(--kv-teal);
+}
+
+.kv-neurons--output circle {
+  fill: var(--kv-teal-dark);
+}
+
+.kv-neural circle:nth-child(3n+1) { animation-duration: 1.75s; animation-delay: -.4s; }
+.kv-neural circle:nth-child(3n+2) { animation-duration: 2.45s; animation-delay: -1.2s; }
+.kv-neural circle:nth-child(3n) { animation-duration: 3.05s; animation-delay: -.8s; }
 
 .kv-gauge {
   top: 22%;
@@ -554,10 +589,16 @@
     padding: 66px 0 310px;
   }
 
-  .kv-neural,
   .kv-bars,
   .kv-tokens {
     display: none;
+  }
+
+  .kv-neural {
+    top: auto;
+    right: 5%;
+    bottom: 27%;
+    display: block;
   }
 
   .kv-hud {
@@ -669,6 +710,14 @@
     font-size: 18px;
   }
 
+  .kv-neural {
+    top: auto;
+    right: 18px;
+    bottom: 185px;
+    width: 190px;
+    height: 132px;
+  }
+
   .kv-fallback,
   .kv-wave {
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 42%, #000 100%);
@@ -745,6 +794,21 @@
     right: 12px;
     bottom: 64px;
   }
+
+  .kv-neural {
+    right: 12px;
+    bottom: 170px;
+    width: 180px;
+    height: 126px;
+    padding: 12px;
+  }
+
+  .kv-neural b {
+    margin-bottom: 7px;
+    font-size: 9.5px;
+  }
+
+  .kv-neural svg { height: 80px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
