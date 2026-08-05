@@ -7,6 +7,7 @@
     cta_click: true,
     select_content: true,
     article_progress: true,
+    consult_cta_click: true,
     doctor_interest: true,
     lead_form_start: true,
     lead_submit_attempt: true,
@@ -22,7 +23,21 @@
   var allowedParams = {
     cta_click: ['cta_name', 'cta_location', 'audience'],
     select_content: ['content_type', 'content_id', 'cta_location', 'audience'],
-    article_progress: ['content_id', 'progress_percent'],
+    article_progress: [
+      'content_id',
+      'content_type',
+      'content_category',
+      'progress_percent',
+      'article_completion_state'
+    ],
+    consult_cta_click: [
+      'cta_position',
+      'content_id',
+      'content_type',
+      'content_category',
+      'progress_percent',
+      'article_completion_state'
+    ],
     doctor_interest: ['cta_name', 'cta_location', 'audience'],
     lead_form_start: ['form_id', 'form_type', 'audience', 'cta_name', 'cta_location'],
     lead_submit_attempt: ['form_id', 'form_type', 'audience', 'cta_name', 'cta_location'],
@@ -178,21 +193,38 @@
     var contentId = document.body.getAttribute('data-article-id') ||
       location.pathname.split('/').pop().replace(/\.html?$/i, '') ||
       'article';
+    var contentType = document.body.getAttribute('data-content-type') || 'longform_diagnostic';
+    var contentCategory = document.body.getAttribute('data-article-category') || contentType;
+    var maxProgressPercent = 0;
     var reached = {};
     var ticking = false;
+
+    window.medihimGetArticleProgressContext = function () {
+      return {
+        content_id: contentId,
+        content_type: contentType,
+        content_category: contentCategory,
+        progress_percent: Math.round(maxProgressPercent),
+        article_completion_state: maxProgressPercent >= 90 ? 'completed' : 'not_completed'
+      };
+    };
 
     function checkProgress() {
       ticking = false;
       var root = document.documentElement;
       var maxScroll = Math.max(1, root.scrollHeight - window.innerHeight);
       var progress = Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100));
+      maxProgressPercent = Math.max(maxProgressPercent, progress);
 
       [50, 90].forEach(function (threshold) {
         if (progress < threshold || reached[threshold]) return;
         reached[threshold] = true;
         window.medihimTrack('article_progress', {
           content_id: contentId,
-          progress_percent: threshold
+          content_type: contentType,
+          content_category: contentCategory,
+          progress_percent: threshold,
+          article_completion_state: threshold >= 90 ? 'completed' : 'in_progress'
         });
       });
     }
