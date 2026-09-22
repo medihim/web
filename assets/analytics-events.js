@@ -21,14 +21,26 @@
   };
 
   var allowedParams = {
-    cta_click: ['cta_name', 'cta_location', 'audience'],
-    select_content: ['content_type', 'content_id', 'cta_location', 'audience'],
+    cta_click: [
+      'cta_name', 'cta_location', 'audience', 'content_id', 'content_version',
+      'content_title', 'content_category', 'content_type', 'title_variant',
+      'cta_type', 'tracking_version', 'progress_percent', 'article_completion_state'
+    ],
+    select_content: [
+      'content_type', 'content_id', 'cta_location', 'audience', 'content_version',
+      'content_title', 'content_category', 'title_variant', 'cta_type', 'tracking_version'
+    ],
     article_progress: [
       'content_id',
       'content_type',
       'content_category',
       'progress_percent',
-      'article_completion_state'
+      'article_completion_state',
+      'content_version',
+      'content_title',
+      'title_variant',
+      'cta_type',
+      'tracking_version'
     ],
     consult_cta_click: [
       'cta_position',
@@ -36,7 +48,12 @@
       'content_type',
       'content_category',
       'progress_percent',
-      'article_completion_state'
+      'article_completion_state',
+      'content_version',
+      'content_title',
+      'title_variant',
+      'cta_type',
+      'tracking_version'
     ],
     doctor_interest: ['cta_name', 'cta_location', 'audience'],
     lead_form_start: ['form_id', 'form_type', 'audience', 'cta_name', 'cta_location'],
@@ -104,13 +121,58 @@
     return true;
   };
 
+  function contentMetadata(element) {
+    var contentElement = element && element.closest
+      ? element.closest('[data-content-id]')
+      : null;
+    if (!contentElement) {
+      contentElement = document.querySelector('main .article-layout article.prose, main article[data-article-detail]');
+    }
+
+    var body = document.body;
+    var heading = document.querySelector('main h1');
+    var contentType = contentElement && contentElement.getAttribute('data-content-type') ||
+      body.getAttribute('data-content-type') ||
+      'longform_diagnostic';
+
+    return {
+      content_id: contentElement && contentElement.getAttribute('data-content-id') ||
+        body.getAttribute('data-article-id') ||
+        location.pathname.split('/').pop().replace(/\.html?$/i, '') ||
+        'article',
+      content_version: contentElement && contentElement.getAttribute('data-content-version') || '',
+      content_title: contentElement && contentElement.getAttribute('data-content-title') ||
+        (heading ? heading.textContent : ''),
+      content_category: contentElement && contentElement.getAttribute('data-content-category') ||
+        body.getAttribute('data-content-category') ||
+        body.getAttribute('data-article-category') ||
+        contentType,
+      content_type: contentType,
+      title_variant: contentElement && contentElement.getAttribute('data-title-variant') || '',
+      cta_type: contentElement && contentElement.getAttribute('data-cta-type') || '',
+      tracking_version: contentElement && contentElement.getAttribute('data-tracking-version') || ''
+    };
+  }
+
   function trackingParams(element) {
+    var metadata = contentMetadata(element);
+    var progressContext = typeof window.medihimGetArticleProgressContext === 'function'
+      ? window.medihimGetArticleProgressContext()
+      : {};
     return {
       cta_name: element.getAttribute('data-cta-name') || '',
       cta_location: element.getAttribute('data-cta-location') || '',
       audience: element.getAttribute('data-audience') || '',
-      content_type: element.getAttribute('data-content-type') || '',
-      content_id: element.getAttribute('data-content-id') || '',
+      content_type: element.getAttribute('data-content-type') || metadata.content_type,
+      content_id: element.getAttribute('data-content-id') || metadata.content_id,
+      content_version: element.getAttribute('data-content-version') || metadata.content_version,
+      content_title: element.getAttribute('data-content-title') || metadata.content_title,
+      content_category: element.getAttribute('data-content-category') || metadata.content_category,
+      title_variant: element.getAttribute('data-title-variant') || metadata.title_variant,
+      cta_type: element.getAttribute('data-cta-type') || metadata.cta_type,
+      tracking_version: element.getAttribute('data-tracking-version') || metadata.tracking_version,
+      progress_percent: progressContext.progress_percent,
+      article_completion_state: progressContext.article_completion_state,
       job_id: element.getAttribute('data-job-id') || '',
       platform: element.getAttribute('data-platform') || ''
     };
@@ -190,11 +252,10 @@
     var article = document.querySelector('main .article-layout article.prose, main article[data-article-detail]');
     if (!article) return;
 
-    var contentId = document.body.getAttribute('data-article-id') ||
-      location.pathname.split('/').pop().replace(/\.html?$/i, '') ||
-      'article';
-    var contentType = document.body.getAttribute('data-content-type') || 'longform_diagnostic';
-    var contentCategory = document.body.getAttribute('data-article-category') || contentType;
+    var metadata = contentMetadata(article);
+    var contentId = metadata.content_id;
+    var contentType = metadata.content_type;
+    var contentCategory = metadata.content_category;
     var maxProgressPercent = 0;
     var reached = {};
     var ticking = false;
@@ -202,8 +263,13 @@
     window.medihimGetArticleProgressContext = function () {
       return {
         content_id: contentId,
-        content_type: contentType,
+        content_version: metadata.content_version,
+        content_title: metadata.content_title,
         content_category: contentCategory,
+        content_type: contentType,
+        title_variant: metadata.title_variant,
+        cta_type: metadata.cta_type,
+        tracking_version: metadata.tracking_version,
         progress_percent: Math.round(maxProgressPercent),
         article_completion_state: maxProgressPercent >= 90 ? 'completed' : 'not_completed'
       };
@@ -221,8 +287,13 @@
         reached[threshold] = true;
         window.medihimTrack('article_progress', {
           content_id: contentId,
+          content_version: metadata.content_version,
+          content_title: metadata.content_title,
           content_type: contentType,
           content_category: contentCategory,
+          title_variant: metadata.title_variant,
+          cta_type: metadata.cta_type,
+          tracking_version: metadata.tracking_version,
           progress_percent: threshold,
           article_completion_state: threshold >= 90 ? 'completed' : 'in_progress'
         });
